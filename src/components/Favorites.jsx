@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Global } from '@emotion/react';
 import { styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
@@ -20,27 +20,7 @@ const Puller = styled(Box)(({ theme }) => ({
 	left: 'calc(50% - 15px)',
 }));
 
-function Favorites({ favoritesOpen, favoritesList, favAdded, setFavAdded }) {
-	const [favorites, setFavorites] = useState(favoritesList)
-
-	useEffect(() => {
-		setFavorites(favoritesList)
-		// fetch(`https://api.discogs.com/users/hergoro/collection/folders/0/releases`, {
-		// 	Authorization: "Discogs",
-		// 	key: "jgQRIYTqTaLYrXEqsccr&secret",
-		// 	secret: "OMjRyDDttdlzxYLAKCcCzhuJrMZizoHk"
-		// })
-		// 	.then(response => response.json())
-		// 	.catch(error => console.error('Error:', error))
-		// 	.then(data => {
-		// 		setFavorites(data)
-		// 	})
-	}, [favoritesList])
-
-
-	const deleteFavorite = (value) => {
-		setFavorites(favorites.filter(fav => fav !== value))
-	}
+function Favorites({ favoritesOpen, favorites, favAdded, setFavAdded, deleteFavorite }) {
 
 	return (
 		<Fragment>
@@ -112,10 +92,10 @@ function Favorites({ favoritesOpen, favoritesList, favAdded, setFavAdded }) {
 											key={fav.id}
 											sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 										>
-											<TableCell component="th" scope="row"><Avatar sx={{ bgcolor: 'grey' }} aria-label="artist" src={fav.cover_image} /></TableCell>
+											<TableCell component="th" scope="row"><Avatar sx={{ bgcolor: 'grey' }} aria-label="artist" src={fav.avatar} /></TableCell>
 											<TableCell>{fav.id}</TableCell>
-											<TableCell>{fav.title}</TableCell>
-											<TableCell>{fav.genre ? fav.genre.join(', ') : 'without data'}</TableCell>
+											<TableCell>{fav.item}</TableCell>
+											<TableCell>{fav.genres ? fav.genres.join(', ') : 'without data'}</TableCell>
 											<TableCell><IconButton aria-label="delete" onClick={() => deleteFavorite(fav)}><DeleteForeverIcon /></IconButton></TableCell>
 										</TableRow>
 									))}
@@ -129,7 +109,7 @@ function Favorites({ favoritesOpen, favoritesList, favAdded, setFavAdded }) {
 			<Snackbar
 				anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
 				open={favAdded}
-				autoHideDuration={3000}
+				autoHideDuration={2000}
 				onClose={() => setFavAdded(false)}
 				message="Favorite added"
 				severity="success"

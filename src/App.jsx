@@ -3,6 +3,20 @@ import { Box, TextField, Grid, Pagination, CircularProgress, Button } from '@mui
 import useOpen from './hooks/useOpen'
 import Results from './components/Results'
 import Favorites from './components/Favorites'
+import { useLocalStorage } from './hooks/useLocalStorage';
+export class FavoriteItem {
+	avatar
+	id
+	item
+	genres
+
+	constructor (avatar, id, item, genres) {
+		this.avatar = avatar
+		this.id = id
+		this.item = item
+		this.genres = genres
+	}
+}
 
 const App = () => {
   const [dataForSearch, setDataForSearch] = useState('');
@@ -10,8 +24,8 @@ const App = () => {
   const [page, setPage] = useState();
   const [pages, setPages] = useState();
   const [loading, setLoading] = useState();
-  const [favoritesList, setFavoritesList] = useState([])
   const [favAdded, setFavAdded] = useState(false);
+  const [favorites, setFavorites] = useLocalStorage('favoritesList', [])
 
   const keyAndSecret = 'key=jgQRIYTqTaLYrXEqsccr&secret=OMjRyDDttdlzxYLAKCcCzhuJrMZizoHk'
 
@@ -34,9 +48,14 @@ const App = () => {
     searchingArtist(value)
   }
 
-  const addFavorite = (newValue) => {
-		setFavoritesList(favoritesList => [...favoritesList, newValue])
-    setFavAdded(true)
+  const addFavorite = (item) => {
+		let favObjet = new FavoriteItem(item.cover_image, item.id, item.title, item.genre)
+		setFavorites([...favorites, favObjet])
+    setFavAdded(true);
+	}
+
+  const deleteFavorite = (value) => {
+		setFavorites(favorites.filter(fav => fav !== value))
 	}
 
   return (
@@ -83,7 +102,7 @@ const App = () => {
             :
             null
         }
-        <Favorites favoritesOpen={favoritesOpen} favoritesList={favoritesList} favAdded={favAdded} setFavAdded={setFavAdded}/>
+        <Favorites favoritesOpen={favoritesOpen} favorites={favorites} deleteFavorite={deleteFavorite} setFavAdded={setFavAdded} favAdded={favAdded}/>
       </Grid>
     </Box >
   )

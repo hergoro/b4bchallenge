@@ -55,8 +55,8 @@ const Item = ({ result, addFavorite }) => {
 			/>
 			<CardContent>
 				<CardActions disableSpacing>
-					<IconButton aria-label="add to favorites">
-						<FavoriteIcon onClick={() => addFavorite(result)} style={{ cursor: 'pointer' }} />
+					<IconButton onClick={() => addFavorite(result)} aria-label="add to favorites">
+						<FavoriteIcon/>
 					</IconButton>
 					<ExpandMore
 						expand={expanded}
@@ -100,7 +100,7 @@ const Item = ({ result, addFavorite }) => {
 											)}
 										</List>
 									</> : null
-									}
+								}
 								{details.profile ? <><span>Profile:</span><h4> {details.profile}</h4></> : null}
 								{details.genres ? <><span>Genres:</span><h4> {details.genres.join(', ')}</h4></> : null}
 								{result.label ? <><span>Label:</span><h4> {[...new Set(result.label)].join(', ')}</h4></> : null}
