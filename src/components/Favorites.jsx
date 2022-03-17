@@ -2,7 +2,22 @@ import React, { Fragment } from 'react';
 import { Global } from '@emotion/react';
 import { styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, SwipeableDrawer, Grid, Avatar, IconButton, Snackbar } from '@mui/material';
+import {
+	Box,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+	Paper,
+	Typography,
+	SwipeableDrawer,
+	Grid,
+	Avatar,
+	IconButton,
+	Snackbar
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
@@ -33,7 +48,7 @@ function Favorites({ favoritesOpen, favorites, favAdded, setFavAdded, deleteFavo
 				}}
 			/>
 			<SwipeableDrawer
-				anchor="bottom"
+				anchor='bottom'
 				open={favoritesOpen.open}
 				onClose={favoritesOpen.handleClick}
 				onOpen={favoritesOpen.handleClick}
@@ -56,7 +71,11 @@ function Favorites({ favoritesOpen, favorites, favAdded, setFavAdded, deleteFavo
 				>
 					<Puller />
 					<Grid container direction='row' alignItems='center'>
-						<Grid item><Typography sx={{ p: 2, color: 'text.secondary' }}>Favorites</Typography></Grid>
+						<Grid item>
+							<Typography sx={{ p: 2, color: 'text.secondary' }}>
+								Favorites
+							</Typography>
+						</Grid>
 						<Grid item sx={{ mr: 10, ml: 'auto' }}>
 							{favoritesOpen.open ?
 								<IconButton onClick={favoritesOpen.handleClick}><CloseIcon /></IconButton>
@@ -76,7 +95,7 @@ function Favorites({ favoritesOpen, favorites, favAdded, setFavAdded, deleteFavo
 				>
 					{favorites ?
 						<TableContainer component={Paper} sx={{ mt: 2 }}>
-							<Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+							<Table sx={{ minWidth: 650 }} size='small' aria-label='a dense table'>
 								<TableHead>
 									<TableRow>
 										<TableCell>Avatar</TableCell>
@@ -92,11 +111,11 @@ function Favorites({ favoritesOpen, favorites, favAdded, setFavAdded, deleteFavo
 											key={fav.id}
 											sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 										>
-											<TableCell component="th" scope="row"><Avatar sx={{ bgcolor: 'grey' }} aria-label="artist" src={fav.avatar} /></TableCell>
+											<TableCell component='th' scope='row'><Avatar sx={{ bgcolor: 'grey' }} aria-label='artist' src={fav.avatar} /></TableCell>
 											<TableCell>{fav.id}</TableCell>
 											<TableCell>{fav.item}</TableCell>
-											<TableCell>{fav.genres ? fav.genres.join(', ') : 'without data'}</TableCell>
-											<TableCell><IconButton aria-label="delete" onClick={() => deleteFavorite(fav)}><DeleteForeverIcon /></IconButton></TableCell>
+											<TableCell>{fav.genres ? fav.genres.join(', ') : ''}</TableCell>
+											<TableCell><IconButton aria-label='delete' onClick={() => deleteFavorite(fav)}><DeleteForeverIcon /></IconButton></TableCell>
 										</TableRow>
 									))}
 								</TableBody>
@@ -111,8 +130,8 @@ function Favorites({ favoritesOpen, favorites, favAdded, setFavAdded, deleteFavo
 				open={favAdded}
 				autoHideDuration={2000}
 				onClose={() => setFavAdded(false)}
-				message="Favorite added"
-				severity="success"
+				message='Favorite added'
+				severity='success'
 			/>
 		</Fragment>
 	);

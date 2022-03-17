@@ -1,21 +1,28 @@
 import React, { Fragment, useState } from 'react';
-import { Box, TextField, Grid, Pagination, CircularProgress, Button } from '@mui/material';
+import {
+  Box,
+  TextField,
+  Grid,
+  Pagination,
+  CircularProgress,
+  Button
+} from '@mui/material';
 import useOpen from './hooks/useOpen'
 import Results from './components/Results'
 import Favorites from './components/Favorites'
 import { useLocalStorage } from './hooks/useLocalStorage';
 export class FavoriteItem {
-	avatar
-	id
-	item
-	genres
+  avatar
+  id
+  item
+  genres
 
-	constructor (avatar, id, item, genres) {
-		this.avatar = avatar
-		this.id = id
-		this.item = item
-		this.genres = genres
-	}
+  constructor(avatar, id, item, genres) {
+    this.avatar = avatar
+    this.id = id
+    this.item = item
+    this.genres = genres
+  }
 }
 
 const App = () => {
@@ -49,23 +56,24 @@ const App = () => {
   }
 
   const addFavorite = (item) => {
-		let favObjet = new FavoriteItem(item.cover_image, item.id, item.title, item.genre)
-		setFavorites([...favorites, favObjet])
+    let favObjet = new FavoriteItem(item.cover_image, item.id, item.title, item.genre)
+    setFavorites([...favorites, favObjet])
     setFavAdded(true);
-	}
+  }
 
   const deleteFavorite = (value) => {
-		setFavorites(favorites.filter(fav => fav !== value))
-	}
+    setFavorites(favorites.filter(fav => fav !== value))
+  }
 
   return (
     <Box
-      component="form"
+      component='form'
       sx={{
         '& > :not(style)': { m: 1 },
       }}
       noValidate
-      autoComplete="off"
+      autoComplete='off'
+      data-testid="principalBox"
     >
       <Grid container direction='row' justifyContent='center' spacing={2}>
         <Grid container direction='column' justifyContent='center' alignContent='center'>
@@ -74,9 +82,9 @@ const App = () => {
           </Grid>
           <Grid item alignSelf='center' sx={{ m: 2, mb: 1 }}>
             <TextField
-              id="search-field"
-              label="Search artist, album or both"
-              variant="outlined"
+              id='search-field'
+              label='Search artist, album or both'
+              variant='outlined'
               onChange={(e) => setDataForSearch(e.target.value)}
               onKeyPress={(e) => {
                 if (e.key === 'Enter') {
@@ -94,15 +102,15 @@ const App = () => {
           :
           results.length > 0 ?
             <Fragment>
-              <Results results={results} addFavorite={addFavorite}/>
+              <Results results={results} addFavorite={addFavorite} />
               <Grid container justifyContent='center'>
-                <Pagination variant="outlined" page={page} count={pages} sx={{ mt: 5 }} onChange={handlePage} />
+                <Pagination variant='outlined' page={page} count={pages} sx={{ mt: 5 }} onChange={handlePage} />
               </Grid>
             </Fragment>
             :
             null
         }
-        <Favorites favoritesOpen={favoritesOpen} favorites={favorites} deleteFavorite={deleteFavorite} setFavAdded={setFavAdded} favAdded={favAdded}/>
+        <Favorites favoritesOpen={favoritesOpen} favorites={favorites} deleteFavorite={deleteFavorite} setFavAdded={setFavAdded} favAdded={favAdded} />
       </Grid>
     </Box >
   )

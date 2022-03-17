@@ -8,7 +8,7 @@ const results = ({ results, addFavorite }) => {
 		<Grid container direction='row' justifyContent='center' spacing={2}>
 			{results.map((result) => (
 				<Grid item key={result.id}>
-					<Item result={result} addFavorite={addFavorite}/>
+					<Item result={result} addFavorite={addFavorite} />
 				</Grid>
 			))}
 		</Grid>
